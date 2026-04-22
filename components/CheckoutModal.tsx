@@ -20,6 +20,7 @@ const PLAN_DETAILS = {
 export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: CheckoutModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<PlanType>(initialPlan);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
 
   const [formData, setFormData] = useState({
     nomeCliente: '',
@@ -39,6 +40,7 @@ export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: Che
   useEffect(() => {
     if (isOpen) {
       setSelectedPlan(initialPlan);
+      setCheckoutUrl('');
     }
   }, [isOpen, initialPlan]);
 
@@ -71,8 +73,15 @@ export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: Che
         throw new Error('Erro ao salvar os dados.');
       }
 
-      // Sucesso! Redirecionar para Kiwify
-      window.location.href = PLAN_DETAILS[selectedPlan].link;
+      // Sucesso! Abrir a Kiwify dentro do Modal com os dados preenchidos
+      const queryParams = new URLSearchParams({
+        name: formData.nomeCliente,
+        email: formData.email,
+        phone: formData.whatsapp,
+      }).toString();
+      
+      setCheckoutUrl(`${PLAN_DETAILS[selectedPlan].link}?${queryParams}`);
+      setIsSubmitting(false);
 
     } catch (error) {
       console.error(error);
@@ -84,20 +93,28 @@ export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: Che
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0d0b1f] shadow-2xl p-6 sm:p-8">
+      <div className={`relative w-full overflow-y-auto rounded-3xl border border-white/10 bg-[#0d0b1f] shadow-2xl p-6 sm:p-8 ${checkoutUrl ? 'max-w-4xl h-[90vh]' : 'max-w-2xl max-h-[90vh]'}`}>
         <button
           onClick={onClose}
-          className="absolute right-6 top-6 text-white/50 hover:text-white transition"
+          className="absolute right-6 top-6 text-white/50 hover:text-white transition z-10"
         >
           <X className="h-6 w-6" />
         </button>
 
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-white">Quase lá!</h2>
-          <p className="mt-2 text-white/60">
-            Para compormos sua canção perfeita, precisamos de alguns detalhes especiais sobre a história de vocês.
-          </p>
-        </div>
+        {checkoutUrl ? (
+          <iframe 
+            src={checkoutUrl} 
+            className="w-full h-full rounded-xl bg-white mt-8"
+            frameBorder="0"
+          />
+        ) : (
+          <>
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold text-white">Quase lá!</h2>
+              <p className="mt-2 text-white/60">
+                Para compormos sua canção perfeita, precisamos de alguns detalhes especiais sobre a história de vocês.
+              </p>
+            </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {!initialPlan && (
@@ -186,6 +203,8 @@ export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: Che
             </button>
           </div>
         </form>
+          </>
+        )}
       </div>
     </div>
   );

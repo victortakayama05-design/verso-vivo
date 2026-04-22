@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ChevronRight, Loader2 } from 'lucide-react';
 
 export type PlanType = 'Essencial' | 'Especial' | 'Prioridade' | '';
@@ -35,6 +35,12 @@ export default function CheckoutModal({ isOpen, onClose, initialPlan = '' }: Che
     dataEntrega: '',
     dedicacao: '',
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedPlan(initialPlan);
+    }
+  }, [isOpen, initialPlan]);
 
   if (!isOpen) return null;
 

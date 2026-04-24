@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import CheckoutModal, { PlanType } from '../components/CheckoutModal';
 import {
   Heart,
   Music4,
@@ -37,6 +36,7 @@ type Plan = {
   price: string;
   features: string[];
   cta: string;
+  link: string;
   featured?: boolean;
 };
 
@@ -169,6 +169,7 @@ const plans: Plan[] = [
     price: 'R$ 47',
     features: ['Música personalizada', 'Entrega digital', 'Prazo padrão (5 dias)', 'Criação personalizada'],
     cta: 'Escolher Essencial',
+    link: 'https://pay.kiwify.com.br/EqrDNbe',
   },
   {
     name: 'Especial',
@@ -176,6 +177,7 @@ const plans: Plan[] = [
     price: 'R$ 97',
     features: ['Tudo do Essencial', 'Atendimento prioritário (24 horas)', 'Capa exclusiva', 'Mensagem de dedicatória'],
     cta: 'Escolher Especial',
+    link: 'https://pay.kiwify.com.br/xJa8qOm',
     featured: true,
   },
   {
@@ -184,6 +186,7 @@ const plans: Plan[] = [
     price: 'R$ 147',
     features: ['Tudo do Especial', 'Entrega expressa (4 horas)', 'Experiência premium', 'Suporte prioritário'],
     cta: 'Escolher Prioridade',
+    link: 'https://pay.kiwify.com.br/eVfgRbT',
   },
 ];
 
@@ -445,17 +448,8 @@ function AudioExperienceCard() {
 }
 
 export default function Page() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlanStr, setSelectedPlanStr] = useState<PlanType>('');
-
-  const handleOpenModal = (planName: PlanType = '') => {
-    setSelectedPlanStr(planName);
-    setIsModalOpen(true);
-  };
-
   return (
     <div className="min-h-screen bg-[#060510] text-white">
-      <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} initialPlan={selectedPlanStr} />
       <div className="relative overflow-hidden">
         <GradientOrb className="-left-24 top-0 h-80 w-80" />
         <GradientOrb className="right-[-5rem] top-32 h-[28rem] w-[28rem]" />
@@ -487,12 +481,12 @@ export default function Page() {
             </a>
           </nav>
 
-          <button
-            onClick={() => handleOpenModal()}
+          <a
+            href="#planos"
             className="rounded-full border border-white/10 bg-white px-5 py-3 text-sm font-medium text-[#0b0920] transition hover:scale-[1.02]"
           >
             Criar minha música
-          </button>
+          </a>
         </header>
 
         <section className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-6 pb-20 pt-8 lg:grid-cols-[1.08fr_.92fr] lg:px-8 lg:pb-28 lg:pt-14">
@@ -523,13 +517,13 @@ export default function Page() {
             </motion.p>
 
             <motion.div variants={fadeUp} custom={3} className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <button
-                onClick={() => handleOpenModal()}
+              <a
+                href="#planos"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-base font-medium text-[#0a081b] transition hover:scale-[1.02]"
               >
                 Criar minha música agora
                 <ChevronRight className="h-4 w-4" />
-              </button>
+              </a>
               <a
                 href="#como-funciona"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-6 py-4 text-base font-medium text-white/90 backdrop-blur-xl transition hover:bg-white/10"
@@ -778,8 +772,8 @@ export default function Page() {
                 ))}
               </div>
 
-              <button
-                onClick={() => handleOpenModal(plan.name as PlanType)}
+              <a
+                href={plan.link}
                 className={`mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-base font-medium transition hover:scale-[1.01] ${
                   plan.featured
                     ? 'bg-white text-[#0b091b]'
@@ -788,7 +782,7 @@ export default function Page() {
               >
                 {plan.cta}
                 <ChevronRight className="h-4 w-4" />
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -841,17 +835,11 @@ export default function Page() {
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href="https://seuformulario.com/geral"
+                href="#planos"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-base font-medium text-[#0b091b] transition hover:scale-[1.02]"
               >
                 Criar minha música
                 <ChevronRight className="h-4 w-4" />
-              </a>
-              <a
-                href="#planos"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-6 py-4 text-base font-medium text-white/90"
-              >
-                Ver planos
               </a>
             </div>
           </div>

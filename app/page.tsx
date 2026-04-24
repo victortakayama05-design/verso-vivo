@@ -60,7 +60,7 @@ const audioSamples: AudioSample[] = [
     title: 'Quando sentimentos ganham voz',
     subtitle: 'Prévia principal da experiência',
     durationLabel: '0:30',
-    audioUrl: 'https://seu-link-de-audio.com/demo-principal.mp3',
+    audioUrl: '/audios/quando-sentimentos-ganham-voz.mp3',
     coverLabel: 'Canção personalizada',
   },
   {

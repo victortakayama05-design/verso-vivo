@@ -704,7 +704,7 @@ export default function Page() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/70">
                 <Quote className="h-3.5 w-3.5" />
-                Prova social
+                O que estão falando da VersoVivo
               </div>
               <h3 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
                 Histórias especiais merecem ser sentidas de verdade.

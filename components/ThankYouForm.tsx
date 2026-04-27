@@ -30,7 +30,6 @@ export default function ThankYouForm({ plano }: ThankYouFormProps) {
     sentimento: '',
     historias: '',
     detalhesImportantes: '',
-    dataEntrega: '',
     dedicacao: '',
   });
 
@@ -132,14 +131,9 @@ export default function ThankYouForm({ plano }: ThankYouFormProps) {
             <input required name="estilo" value={formData.estilo} onChange={handleChange} type="text" placeholder="Ex: Acústico, MPB, Pop..." className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 focus:border-fuchsia-400 focus:outline-none" />
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-white/80">Data de Entrega Desejada</label>
-            <input required name="dataEntrega" value={formData.dataEntrega} onChange={handleChange} type="date" className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 focus:border-fuchsia-400 focus:outline-none" />
+            <label className="block text-sm font-medium text-white/80">Qual sentimento principal a música deve passar?</label>
+            <input required name="sentimento" value={formData.sentimento} onChange={handleChange} type="text" placeholder="Ex: Emocionante, alegre, nostálgico..." className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 focus:border-fuchsia-400 focus:outline-none" />
           </div>
-        </div>
-
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-white/80">Qual sentimento principal a música deve passar?</label>
-          <input required name="sentimento" value={formData.sentimento} onChange={handleChange} type="text" placeholder="Ex: Emocionante, alegre, nostálgico..." className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 focus:border-fuchsia-400 focus:outline-none" />
         </div>
 
         <div className="space-y-2">

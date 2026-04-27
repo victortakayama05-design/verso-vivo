@@ -15,10 +15,21 @@ export async function POST(req: NextRequest) {
     const { 
       plano, valor, origem, nomeCliente, email, whatsapp, 
       nomeHomenageado, relacao, ocasiao, estilo, sentimento, 
-      historias, detalhesImportantes, dataEntrega, dedicacao 
+      historias, detalhesImportantes, dedicacao 
     } = body;
 
     const sheetId = SHEET_IDS[plano as keyof typeof SHEET_IDS];
+
+    // Calcula a data de entrega automaticamente baseada no plano
+    const now = new Date();
+    if (plano === 'Essencial') {
+      now.setDate(now.getDate() + 5);
+    } else if (plano === 'Especial') {
+      now.setHours(now.getHours() + 24);
+    } else if (plano === 'Prioridade') {
+      now.setHours(now.getHours() + 4);
+    }
+    const dataEntrega = now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
 
     if (!sheetId) {
       return NextResponse.json({ error: 'Plano inválido ou ausente.' }, { status: 400 });

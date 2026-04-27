@@ -64,11 +64,11 @@ const audioSamples: AudioSample[] = [
     coverLabel: 'Canção personalizada',
   },
   {
-    id: 'memoria',
-    title: 'Memória para guardar',
-    subtitle: 'Para Helena',
-    durationLabel: '2:48',
-    audioUrl: '/audio/memoria para guardar.mp3',
+    id: 'entre-nos-dois',
+    title: 'Entre Nós Dois',
+    subtitle: 'Victor e Gislene',
+    durationLabel: '3:38',
+    audioUrl: '/audio/Entre Nós Dois.mp3',
     coverLabel: 'Amostra sensível',
   },
   {
